@@ -107,3 +107,52 @@ while (continuar != 0)
     int.TryParse(Console.ReadLine(), out continuar);
 }
 
+//Ejercicio 3
+int Numero1, Numero2;
+float Numero;
+string SNumero, SNumero1, SNumero2;
+
+do
+{
+    Console.WriteLine("\nIngrese un número: ");
+    SNumero = Console.ReadLine();
+} while (string.IsNullOrWhiteSpace(SNumero) || string.IsNullOrEmpty(SNumero) || !float.TryParse(SNumero, out Numero));
+
+Console.WriteLine("1.Valor Absoluto: " + MathF.Abs(Numero));
+Console.WriteLine("2.Cuadrado: " + MathF.Pow(Numero, 2));
+if (Numero > 0)
+{
+    Console.WriteLine("3.Raíz Cuadrada: " + MathF.Sqrt(Numero));
+} else
+{
+    Console.WriteLine("3.No se puede calcular la raíz cuadrada de un número negativo.");
+}
+Console.WriteLine("4.Seno: " + MathF.Sin(Numero));
+Console.WriteLine("5.Coseno: " + MathF.Cos(Numero));
+Console.WriteLine("6.Parte entera: " + MathF.Truncate(Numero));
+
+do
+    {
+        Console.WriteLine("\nIngrese el primer numero entero: ");
+        SNumero1 = Console.ReadLine();
+        Console.WriteLine("Ingrese el segundo numero entero: ");
+        SNumero2 = Console.ReadLine();
+    } while (string.IsNullOrWhiteSpace(SNumero1) || string.IsNullOrWhiteSpace(SNumero2) || !int.TryParse(SNumero1, out Numero1) || !int.TryParse(SNumero2, out Numero2));
+
+
+if (Numero1 != Numero2)
+{
+    if (Numero1 > Numero2)
+    {
+        Console.WriteLine("El máximo entre los dos numeros ingresados es: " + Numero1);
+        Console.WriteLine("El mínimo entre los dos numeros ingresados es: " + Numero2);
+    }
+    else
+    {
+        Console.WriteLine("El máximo entre los dos numeros ingresados es: " + Numero2);
+        Console.WriteLine("El minimo entre los dos numeros ingresados es: " + Numero1);
+    }
+} else
+{
+    Console.WriteLine("Los numeros ingresados son iguales.");
+}
