@@ -86,6 +86,7 @@ while (continuar != 0)
             break;
         case 3:
             resultado = num1 * num2;
+            Console.WriteLine($"\nResultado: {resultado}");
             break;
         case 4:
             if (num2 != 0)
