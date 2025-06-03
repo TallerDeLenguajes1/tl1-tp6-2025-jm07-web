@@ -60,48 +60,111 @@ while (continuar != 0)
     do
     {
         Console.WriteLine("\nMenú de Operaciones: ");
-        Console.WriteLine("  1. Sumar | 2. Restar | 3. Multiplicar | 4. Dividir \n");
+        Console.WriteLine("  1. Sumar | 2. Restar | 3. Multiplicar | 4. Dividir | 5. Ingresar ecuación como cadena \n");
         Console.WriteLine("Eleja una opción: ");
         String_operacion = Console.ReadLine();
         int.TryParse(String_operacion, out operacion);
-    } while (operacion < 1 || operacion > 4);
+    } while (operacion < 1 || operacion > 5);
 
-    do
+    if (operacion == 5)
     {
-        Console.WriteLine("\nIngrese el primer numero: ");
-        Snum1 = Console.ReadLine();
-        Console.WriteLine("\nIngrese el segundo numero: ");
-        Snum2 = Console.ReadLine();
-    } while (string.IsNullOrWhiteSpace(Snum1) || string.IsNullOrWhiteSpace(Snum2) || !float.TryParse(Snum1, out num1) || !float.TryParse(Snum2, out num2));
+        Console.WriteLine("\nIngrese una ecuación simple (ej: 582+2): ");
+        string ecuacion = Console.ReadLine();
 
-    switch (operacion)
+        // Buscar el operador y separar los números
+        char[] operadores = { '+', '-', '*', '/' };
+        char operadorEncontrado = ' ';
+        int indice = -1;
+
+        foreach (char op in operadores)
+        {
+            indice = ecuacion.IndexOf(op);
+            if (indice != -1)
+            {
+                operadorEncontrado = op;
+                break;
+            }
+        }
+
+        if (indice != -1)
+        {
+            string parte1 = ecuacion.Substring(0, indice);
+            string parte2 = ecuacion.Substring(indice + 1);
+
+            if (float.TryParse(parte1, out num1) && float.TryParse(parte2, out num2))
+            {
+                switch (operadorEncontrado)
+                {
+                    case '+':
+                        resultado = num1 + num2;
+                        Console.WriteLine($"\nResultado: {num1} + {num2} = {resultado}");
+                        break;
+                    case '-':
+                        resultado = num1 - num2;
+                        Console.WriteLine($"\nResultado: {num1} - {num2} = {resultado}");
+                        break;
+                    case '*':
+                        resultado = num1 * num2;
+                        Console.WriteLine($"\nResultado: {num1} * {num2} = {resultado}");
+                        break;
+                    case '/':
+                        if (num2 != 0)
+                        {
+                            resultado = num1 / num2;
+                            Console.WriteLine($"\nResultado: {num1} / {num2} = {resultado}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nNo se puede dividir por 0.");
+                        }
+                        break;
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("No se encontró un operador válido en la ecuación.");
+        }
+    }
+    else
     {
-        case 1:
-            resultado = num1 + num2;
-            Console.WriteLine($"\nResultado: {resultado}");
-            break;
-        case 2:
-            resultado = num1 - num2;
-            Console.WriteLine($"\nResultado: {resultado}");
-            break;
-        case 3:
-            resultado = num1 * num2;
-            Console.WriteLine($"\nResultado: {resultado}");
-            break;
-        case 4:
-            if (num2 != 0)
-            {
-                resultado = num1 / num2;
-                Console.WriteLine($"\nResultado: {resultado}");
-            }
-            else
-            {
-                Console.WriteLine("\nNo se puede dividir por 0.");
-            }
-            break;
-        default:
-            Console.WriteLine("\nNo se encontró esa operación.");
-            continue;
+        do
+        {
+            Console.WriteLine("\nIngrese el primer numero: ");
+            Snum1 = Console.ReadLine();
+            Console.WriteLine("\nIngrese el segundo numero: ");
+            Snum2 = Console.ReadLine();
+        } while (string.IsNullOrWhiteSpace(Snum1) || string.IsNullOrWhiteSpace(Snum2) || !float.TryParse(Snum1, out num1) || !float.TryParse(Snum2, out num2));
+
+        switch (operacion)
+        {
+            case 1:
+                resultado = num1 + num2;
+                Console.WriteLine($"\nLa suma de " + num1.ToString() + " y de " + num2.ToString() + " es igual a: " + resultado.ToString());
+                break;
+            case 2:
+                resultado = num1 - num2;
+                Console.WriteLine($"\nLa resta de " + num1.ToString() + " y de " + num2.ToString() + " es igual a: " + resultado.ToString());
+                break;
+            case 3:
+                resultado = num1 * num2;
+                Console.WriteLine($"\nLa multiplicación de " + num1.ToString() + " y de " + num2.ToString() + " es igual a: " + resultado.ToString());
+                break;
+            case 4:
+                if (num2 != 0)
+                {
+                    resultado = num1 / num2;
+                    Console.WriteLine($"\nLa división de " + num1.ToString() + " y de " + num2.ToString() + " es igual a: " + resultado.ToString());
+                }
+                else
+                {
+                    Console.WriteLine("\nNo se puede dividir por 0.");
+                }
+                break;
+            default:
+                Console.WriteLine("\nNo se encontró esa operación.");
+                continue;
+        }
     }
 
     Console.WriteLine("\nQuiere continuar? (SI = 1, NO = 0): ");
@@ -157,3 +220,48 @@ if (Numero1 != Numero2)
 {
     Console.WriteLine("Los numeros ingresados son iguales.");
 }
+
+//Ejercicio 4
+string cadena, cadena2, palabraBuscada, cadena3;
+int longitud;
+char separador = '/';
+
+Console.WriteLine("\nIngrese una cadena: ");
+cadena = Console.ReadLine();
+longitud = cadena.Length;
+Console.WriteLine("La longitud de la cadena ingresada es: " + longitud);
+
+Console.WriteLine("\nIngrese la cadena 2: ");
+cadena2 = Console.ReadLine();
+Console.WriteLine("\nLas cadenas concatenadas: " + string.Concat(cadena, cadena2));
+
+Console.WriteLine("\nLos elementos de la primera cadena ingresada son: ");
+foreach (char letras in cadena)
+{
+    Console.WriteLine(letras);
+}
+
+Console.WriteLine("\nIngrese la palabra que quiere buscar en la primera cadena: ");
+palabraBuscada = Console.ReadLine();
+if (cadena.IndexOf(palabraBuscada) != -1)
+{
+    Console.WriteLine("La palabra se encuentra en la cadena.");
+}
+else
+{
+    Console.WriteLine("La palabra NO se encuentra en la cadena.");
+}
+
+Console.WriteLine("\nPrimera cadena en mayúscula: ");
+Console.WriteLine(cadena.ToUpper());
+Console.WriteLine("\nPrimera cadena en minúscula: ");
+Console.WriteLine(cadena.ToLower());
+
+Console.WriteLine("\nIngrese una cadena con / para ver el comportamiento del split: ");
+cadena3 = Console.ReadLine();
+Console.WriteLine("Subcadenas: ");
+foreach (string subcadena in cadena3.Split(separador))
+{
+    Console.WriteLine(subcadena);
+}
+
